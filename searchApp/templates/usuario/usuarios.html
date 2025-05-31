@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Usuários{% endblock %}
+
+{% block content %}
+<div id="content">
+    <div class="container">
+        <div class="alert alert-info">
+            Foram encontrados: {{ users|length }} usuário(s)
+        </div>
+
+        <div class="row">
+            {% for user in users %}
+                <div class="col-xs-12 col-md-3 col-lg-3">
+                    <div class="card mb-4">
+                        <div class="image-circle" style="background-image: url('/media/{{ user.image }}');"></div>
+                        <div class="card-body">
+                            <div class="address mb-2"
+                                 title="{{ user.addresses.first.address }}" alt="{{ user.addresses.first.address }}">
+                                {{ user.addresses.first.address|default:"Nenhum endereço."|slice:":15" }}...
+                            </div>
+
+                            {% if user.id %}
+                                <a href="{% url 'profile' user.id %}" class="btn btn-primary btn-card">Ver usuário</a>
+                            {% else %}
+                                <span class="text-muted">Usuário sem ID</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            <nav aria-label="Page navigation" class="navigation">
+                <ul class="pagination">
+                    {% if users.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1{{ parameters }}">&laquo; Primeiro</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ users.previous_page_number }}{{ parameters }}">Anterior</a>
+                        </li>
+                    {% endif %}
+
+                    <li class="page-item">
+                        <a class="page-link" href="#">Página {{ users.number }} de {{ users.paginator.num_pages }}.</a>
+                    </li>
+
+                    {% if users.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ users.next_page_number }}{{ parameters }}">Próximo</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ users.paginator.num_pages }}{{ parameters }}">Último &raquo;</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+{% endblock %}

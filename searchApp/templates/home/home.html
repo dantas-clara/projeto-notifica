@@ -1,0 +1,51 @@
+<!-- CORPO DO SITE 2 -->
+
+{% extends "base.html" %}
+{% load static %}
+
+
+<!-- bloco 1 -->
+{% block title %} Início {% endblock %}
+
+
+<!-- bloco 2 -->
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+
+    <style>
+        .nav-link {
+          color: brown !important;
+        }
+        .nav-link:hover {
+          color: #5c4033 !important;
+        }
+        .page-footer a {
+          color: brown !important;
+        }
+        .page-footer a:hover {
+          color: #5c4033 !important;
+        }
+        .page-footer {
+          color: brown !important;
+        }
+
+    </style>
+{% endblock %}
+
+
+
+<!-- bloco 3 -->
+{% block content %}
+    <div id="content">
+        <h1>  Bem-vindo(a) ao maior site de Notificação do mundo</h1>
+
+        <p> | Somos responsáveis por notificar todos os casos de Obesidade em adultos |</p>
+    </div>
+
+{% endblock %}
+
+
+<!-- bloco 4 -->
+{% block scripts %}
+
+{% endblock %}

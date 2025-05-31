@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<h1>Dashboard</h1>
+<div class="dashboard" style="display:flex; gap:20px;">
+  <div class="card" style="border:1px solid #ccc; border-radius:8px; padding:15px; width:250px; box-shadow:2px 2px 6px #aaa;">
+    <h2>Utilizadores Registados</h2>
+    <p>{{ num_users }}</p>
+  </div>
+  <div class="card" style="border:1px solid #ccc; border-radius:8px; padding:15px; width:250px; box-shadow:2px 2px 6px #aaa;">
+    <h2>Contas Bloqueadas</h2>
+    <p>{{ num_blocked }}</p>
+  </div>
+  <div class="card" style="border:1px solid #ccc; border-radius:8px; padding:15px; width:250px; box-shadow:2px 2px 6px #aaa;">
+    <h2>Atividades Recentes</h2>
+    <ul style="list-style:none; padding-left:0;">
+      {% for activity in recent_activities %}
+        <li>{{ activity.timestamp|date:"d/m/Y H:i" }} - {{ activity.description }}</li>
+      {% empty %}
+        <li>Sem atividades recentes.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

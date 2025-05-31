@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Usuários{% endblock %}
+
+{% block styles %}<link rel="stylesheet" href="{% static 'css/profile.css' %}">{% endblock %}
+
+{% block content %}
+<div id="content">
+    <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-3" id="profile-area">
+
+                    <div id="image-profile" style="background-image: url('/media/{{profile.image}}');"></div>
+
+                    {% if profile.role == 1 %}
+                    <p class="badge badge-primary text-center" id="badge-role"><i class="fa fa-building"></i> Administrador
+                    </p>
+
+                    {% else %}
+                    <p class="badge badge-primary text-center" id="badge-role"><i class="fa fa-user"></i> Usuario
+                    </p>
+                    {% endif %}
+
+                    {% if profile.user.id == request.user.id %}
+                        <a id="icon-edit" href="#">
+                            <i class="fa fa-ed it">
+                            </i>
+                        </a>
+                    {% endif %}
+
+                    <ul class="list-group">
+                        <li class="list-group-item">Nome: {{profile.user.get_full_name | default:"Sem nome"}}</li>
+                        <li class="list-group-item">Usuário: {{profile.user.username | default:"Sem usuário"}}</li>
+                        <li class="list-group-item">E-mail: {{profile.user.email | default:"Sem e-mail"}}</li>
+                        <li class="list-group-item">Nascimento: {{profile.birthday | date:'d/m/Y' | default:"Sem data"}}</li>
+
+                    </ul>
+                </div>
+            <!--
+                <div class="col-xs-12 col-md-3" id="profile"></div>
+
+                <div class="alert alert-info mt-5">
+                    Total de usuários: {{ profile.users | length }}
+                </div>
+
+                <div class="row">
+                    {% for address in profile.addresses.all %}
+                    <div class="col-xs-12 col-md-12">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{ address.address }}, {{ address.neighborhood.name }}, {{ address.neighborhood.city }}
+                                </h5>
+                                <h6 class="card-subtitle mb-2 text-muted">
+                                    Telefones: {{ address.phone }}
+                                </h6>
+                                <ul id="days">
+                                    <li>Dias de funcionamento:</li>
+                                    {% for day in address.days_week.all %}
+                                    <li>
+                                        - {{ day.name }} | {{ address.opening_time }} - {{ address.closing_time }}
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                {% if profile.user.id == request.user.id %}
+                                <a href="/address/{{ address.id }}" class="btn btn-primary">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                {% endif %}
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

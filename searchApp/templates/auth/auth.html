@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block styles %}
+
+<style>
+    #content form {
+        margin-top: 70px !important;
+        color: brown;
+    }
+
+    #content form input,
+    #content form textarea,
+    #content form select {
+        color: brown;
+        border-color: brown !important;
+    }
+
+    #content form input:focus,
+    #content form textarea:focus,
+    #content form select:focus {
+        border-color: brown !important;
+        box-shadow: 0 0 0 0.2rem rgba(165, 42, 42, 0.25) !important;
+    }
+
+    #content form input::placeholder,
+    #content form textarea::placeholder {
+        color: brown;
+        opacity: 1;
+    }
+
+    .btn-primary {
+        background-color: brown !important;
+        border-color: brown !important;
+    }
+
+    .btn-primary:hover {
+        background-color: #5c2d2d !important;
+        border-color: #5c2d2d !important;
+    }
+</style>
+
+
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+<div id="content">
+    <div class="container-fluid">
+        <div class="row">
+            <form autocomplete="off" class="col-md-4 col-lg-4 offset-md-4 offset-lg-4" method="POST" action="">
+                <h3 class="text-center">{{ title }}</h3>
+
+                {% if message %}
+                <div class="alert alert-{{ message.type }}">{{ message.text }}</div>
+                {% endif %}
+
+                {% csrf_token %}
+                {% for f in form %}
+                    <div class="form-group">
+                        {{ f.label_tag }}
+                        {{ f }}
+                        {% for error in f.errors %}
+                        <div class="invalid-feedback" style="display: initial;">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                <a href="{{ link_href }}" style="display: block; text-align: center; margin-bottom: 20px;">
+                    {{ link_text }}
+                </a>
+
+                {% if title == 'Login' %}
+                    <a href="{% url 'recovery' %}" class="text-center mt-2 mb-2" style="display: block;">Esqueci minha senha</a>
+                {% endif %}
+
+
+                <button type="submit" class="btn btn-primary">{{ button_text }}</button>
+
+                {% if title != 'Recuperar senha' and title != 'Alterar senha' %}
+                {% endif %}
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
